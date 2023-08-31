@@ -1,12 +1,3 @@
-// import { Stack } from "@mui/material";
-// import React, { Component } from "react";
-
-// export default class Authentication extends Component {
-//   render() {
-//     return (<Stack> </Stack>);
-//   }
-// }
-
 import React, { Component } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -20,11 +11,8 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-// import { createTheme, ThemeProvider } from "@mui/material/styles";
-
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Navigate } from "react-router-dom";
-import { Link as RouterLink } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -56,9 +44,9 @@ class SignIn extends Component {
   //   });
   // };
 
-  state = {
-    isAuthenticated: false, // Initialize with false
-  };
+  // state = {
+  //   isAuthenticated: false, // Initialize with false
+  // };
 
   handleSubmit = (event) => {
     event.preventDefault();
@@ -72,13 +60,21 @@ class SignIn extends Component {
       data.get("email") === "user@example.com" &&
       data.get("password") === "password"
     ) {
-      this.setState({ isAuthenticated: true });
+      // Update the state to indicate successful sign-in
+      // this.setState({ isAuthenticated: true });
+      this.props.onSignIn();
+      console.log("hello", this.props.onSignIn);
     }
   };
 
+  // static getDrivedStateFromProps(props,state){
+  //   return
+  // }
+
   render() {
-    if (this.state.isAuthenticated) {
-      return <Navigate to="/dashboard" />;
+    if (this.props.isAuthenticated) {
+      console.log("after auth", this.props.isAuthenticated);
+      return <Navigate to="/" />;
     }
     return (
       <ThemeProvider theme={defaultTheme}>
@@ -143,12 +139,9 @@ class SignIn extends Component {
                   </Link>
                 </Grid>
                 <Grid item>
-                  {/* <Link href="#" variant="body2">
+                  <Link href="#" variant="body2">
                     {"Don't have an account? Sign Up"}
-                  </Link> */}
-                  <RouterLink to="/register" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </RouterLink>
+                  </Link>
                 </Grid>
               </Grid>
             </Box>

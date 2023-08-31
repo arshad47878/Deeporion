@@ -1,55 +1,32 @@
 import React from "react";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import {
+  Route,
+  BrowserRouter as Router,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import SignIn from "./Components/auth/SignIn";
-import ProtectedRoute from "./Components/routes/ProtectedRoute";
 import Dashboard from "./Components/Dashboard";
+import ProtectedRoute from "./Components/routes/ProtectedRoute";
 
-// class App extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       isAuthenticated: false,
-//     };
+// const ProtectedRoute = ({ dashboard, isAuthenticated }) => {
+//   console.log("element", dashboard);
+//   console.log("isAuthenticated", isAuthenticated);
+
+//   if (isAuthenticated) {
+//     return dashboard;
+//   } else {
+//     return <Navigate to="/SignIn" />;
 //   }
+// };
 
-//   componentDidMount() {
-//     this.handleSignIn = () => {
-//       this.setState({ isAuthenticated: true });
-//     };
-//   }
-
-//   render() {
-//     const { isAuthenticated } = this.state;
-//     console.log("path catch", this.props)
-
-//     return (
-//       <Router>
-//         <Routes>
-//           <Route
-//             path="/"
-//             element={
-//               <ProtectedRoute
-//                 element={<Dashboard />}
-//                 isAuthenticated={isAuthenticated}
-//                 path="/dashboard" // Specify the path for the ProtectedRoute
-//               />
-//             }
-//           />
-//           <Route
-//             path="/SignIn"
-//             element={<SignIn onSignIn={this.handleSignIn} />}
-//           />
-//         </Routes>
-//       </Router>
-//     );
-//   }
-// }
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isAuthenticated: false,
     };
+    this.handleSignIn = this.handleSignIn.bind(this)
   }
 
   handleSignIn = () => {
@@ -57,8 +34,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { isAuthenticated } = this.state;
-    console.log("catching", this.props);
+    // const { isAuthenticated } = this.state;
 
     return (
       <Router>
@@ -67,16 +43,27 @@ class App extends React.Component {
             path="/"
             element={
               <ProtectedRoute
-                element={<Dashboard />}
-                isAuthenticated={isAuthenticated}
-                path="/dashboard" // Specify the path for the ProtectedRoute
-              />
+                path="/dashboard"
+                dashboard={<Dashboard />}
+                isAuthenticated={this.state.isAuthenticated}
+              >
+                <Dashboard />
+              </ProtectedRoute>
             }
           />
           <Route
             path="/SignIn"
-            element={<SignIn onSignIn={this.handleSignIn} />}
+            element={
+              <SignIn
+                onSignIn={this.handleSignIn}
+                isAuthenticated={this.state.isAuthenticated}
+              />
+            }
           />
+
+          {/* {this.state.isAuthenticated && (
+            <Route path="/dashboard" element={<Dashboard />} />
+          )} */}
         </Routes>
       </Router>
     );
@@ -84,3 +71,31 @@ class App extends React.Component {
 }
 
 export default App;
+
+// import React from "react";
+// import {
+//   Route,
+//   BrowserRouter as Router,
+//   Routes,
+//   Navigate,
+// } from "react-router-dom";
+// import Dashboard from "./Components/Dashboard";
+// import SignIn from "./Components/auth/SignIn";
+
+// class App extends React.Component {
+//   render() {
+//     return (
+//       <Router>
+//         <Routes>
+//           {/* Route for the Dashboard page */}
+//           <Route path="/dashboard" element={<Dashboard />} />
+
+//           {/* Route for the SignIn page */}
+//           <Route path="/SignIn" element={<SignIn />} />
+//         </Routes>
+//       </Router>
+//     );
+//   }
+// }
+
+// export default App;
