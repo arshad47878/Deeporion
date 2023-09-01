@@ -48,6 +48,24 @@ class SignIn extends Component {
   //   isAuthenticated: false, // Initialize with false
   // };
 
+  // handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   console.log({
+  //     email: data.get("email"),
+  //     password: data.get("password"),
+  //   });
+
+  //   if (
+  //     data.get("email") === "user@example.com" &&
+  //     data.get("password") === "password"
+  //   ) {
+  //     // Update the state to indicate successful sign-in
+  //     // this.setState({ isAuthenticated: true });
+  //     this.props.onSignIn();
+  //     console.log("hello", this.props.onSignIn);
+  //   }
+  // };
   handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -60,10 +78,10 @@ class SignIn extends Component {
       data.get("email") === "user@example.com" &&
       data.get("password") === "password"
     ) {
-      // Update the state to indicate successful sign-in
-      // this.setState({ isAuthenticated: true });
       this.props.onSignIn();
-      console.log("hello", this.props.onSignIn);
+      // Store authentication state in sessionStorage
+      // sessionStorage.setItem("isAuthenticated", "true");
+      console.log("User is authenticated.");
     }
   };
 

@@ -6,8 +6,9 @@ import {
   Navigate,
 } from "react-router-dom";
 import SignIn from "./Components/auth/SignIn";
-import Dashboard from "./Components/Dashboard";
+// import Dashboard from "./Components/Dashboard";
 import ProtectedRoute from "./Components/routes/ProtectedRoute";
+import Dashboard from "./pages/Dashboard";
 
 // const ProtectedRoute = ({ dashboard, isAuthenticated }) => {
 //   console.log("element", dashboard);
@@ -26,11 +27,17 @@ class App extends React.Component {
     this.state = {
       isAuthenticated: false,
     };
-    this.handleSignIn = this.handleSignIn.bind(this)
+    this.handleSignIn = this.handleSignIn.bind(this);
   }
 
   handleSignIn = () => {
     this.setState({ isAuthenticated: true });
+  };
+
+  handleSignOut = () => {
+    this.setState({
+      isAuthenticated: false,
+    });
   };
 
   render() {
@@ -47,7 +54,7 @@ class App extends React.Component {
                 dashboard={<Dashboard />}
                 isAuthenticated={this.state.isAuthenticated}
               >
-                <Dashboard />
+                <Dashboard onSignOut={this.handleSignOut} />
               </ProtectedRoute>
             }
           />
